@@ -42,13 +42,13 @@ func (r *Runner) Run(p *Params) {
 		}
 
 		r.cmd = cmd
-		removeFile(fileName)
 
 		go func(cmd *exec.Cmd) {
 			if err := cmd.Wait(); err != nil {
 				log.Printf("process interrupted: %s \n", err)
 				r.kill(cmd)
 			}
+			removeFile(cmd.Args[0])
 		}(r.cmd)
 	}
 }
